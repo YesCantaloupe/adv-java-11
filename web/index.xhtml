@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- index.xhtml -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library="css" name="durian-styles.css"/>
+    </h:head>
+
+    <h:body>
+        <div id='container'>
+            <h1>Hobbies</h1>
+            <fieldset>
+                <legend>Create</legend>
+                <h:form id="jdbcCreateForm">
+                    <h3>Hobby to Create</h3>
+                    <h:inputText value="#{createBean.hobby.name}"/>
+                    <h:inputText value="#{createBean.hobby.description}"/>
+                    <h:commandButton value="Create" styleClass="commandButton"
+                                     action="#{createBean.performCreate()}" />
+                </h:form>
+            </fieldset>
+            <fieldset>
+                <legend>Read</legend>
+                <h:dataTable value="#{readBean.performRead()}" var="p"
+                             headerClass="hobby-table-header"
+                             styleClass="hobby-table"
+                             rowClasses="hobby-table-odd-row,hobby-table-even-row">
+                    <h:column>
+                        <f:facet name="header">
+                            Hobby ID
+                        </f:facet>
+                        #{p.hobbyID}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        #{p.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Description
+                        </f:facet>
+                        #{p.description}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Date
+                        </f:facet>
+                        <h:outputText value='#{p.created_date}' styleClass="datestyle">
+                            <f:convertDateTime pattern="dd-MMM-yyyy" />
+                        </h:outputText>
+                    </h:column>
+                </h:dataTable>
+            </fieldset>
+            <fieldset>
+                <legend>Update</legend>
+                <h:form id="jdbcUpdateForm">
+                    <h3>Hobby Info to Update</h3>
+                    <h:inputText value="#{updateBean.hobby.hobbyID}" styleClass="inputID"/>
+                    <h:inputText value="#{updateBean.hobby.name}"/>
+                    <h:inputText value="#{updateBean.hobby.description}"/>
+                    <h:commandButton value="Update" styleClass="commandButton"
+                                     action="#{updateBean.performUpdate()}"/>
+                </h:form>
+            </fieldset>
+            <fieldset>
+                <legend>Delete</legend>
+                <h:form id="jdbcDeleteForm">
+                    <h3>Hobby ID to Delete</h3>
+                    <h:inputText value="#{deleteBean.hobby.hobbyID}" styleClass="inputID"/>
+                    <h:commandButton value="Delete" styleClass="commandButton"
+                                     action="#{deleteBean.performDelete()}" />
+                </h:form>
+            </fieldset>
+        </div>
+    </h:body>
+    
+</html>
